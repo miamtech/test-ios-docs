@@ -1,0 +1,27 @@
+name: Build and deploy documentation
+
+on:
+  push:
+    branches: 
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+      - name: Deploy to GitHub Pages
+        id: Deploy
+        uses: actions/deploy-pages@v1
